@@ -79,42 +79,35 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-      <div className="max-w-4xl mx-auto">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-muted/30 to-primary/10">
+      <div className="max-w-6xl mx-auto">
         <div 
           ref={ref}
-          className={`text-center mb-16 ${isIntersecting ? 'animate-fade-in visible' : 'animate-fade-in'}`}
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="contact-title">
-            Let's Work Together
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="contact-description">
-            I'm always interested in new opportunities and exciting projects. Let's connect!
+          className={`text-center mb-16 ${isIntersecting ? 'animate-fade-in visible' : 'animate-fade-in'}`}>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight">Let's Create Together</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Have a project in mind or just want to say hello? I'd love to hear from you.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className={`${isIntersecting ? 'animate-fade-in visible' : 'animate-fade-in'}`}>
-            <h3 className="text-2xl font-bold mb-6" data-testid="contact-info-title">Get In Touch</h3>
+        <div className={`grid md:grid-cols-1 lg:grid-cols-12 gap-12 bg-card border border-border p-6 md:p-8 rounded-2xl shadow-lg ${isIntersecting ? 'animate-fade-in visible' : 'animate-fade-in'}`}>
+          <div className="lg:col-span-5">
+            <h3 className="text-2xl font-bold mb-6 text-foreground">Get In Touch</h3>
             <div className="space-y-6">
               {contactInfo.map((contact) => {
                 const IconComponent = contact.icon;
                 return (
-                  <div key={contact.title} className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                      <IconComponent className="w-5 h-5 text-primary-foreground" />
+                  <div key={contact.title} className="flex items-start space-x-4 group">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:bg-primary/20 transition-colors">
+                      <IconComponent className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium" data-testid={`contact-${contact.title.toLowerCase()}-label`}>
-                        {contact.title}
-                      </p>
-                      <a 
-                        href={contact.href} 
-                        target={contact.title !== "Email" ? "_blank" : undefined}
-                        rel={contact.title !== "Email" ? "noopener noreferrer" : undefined}
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                        data-testid={`contact-${contact.title.toLowerCase()}-link`}
+                      <h4 className="font-semibold text-lg text-foreground">{contact.title}</h4>
+                      <a
+                        href={contact.href}
+                        target={contact.title !== 'Email' ? '_blank' : undefined}
+                        rel={contact.title !== 'Email' ? 'noopener noreferrer' : undefined}
+                        className="text-muted-foreground hover:text-primary transition-colors break-all"
                       >
                         {contact.value}
                       </a>
@@ -125,45 +118,38 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className={`${isIntersecting ? 'animate-fade-in visible' : 'animate-fade-in'}`}>
-            <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
-              <div>
-                <Label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </Label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full"
-                  data-testid="input-name"
-                />
+          <div className="lg:col-span-7">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="name" className="block text-sm font-medium mb-2">Name</Label>
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-input"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="block text-sm font-medium mb-2">Email</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-input"
+                    placeholder="Your Email"
+                  />
+                </div>
               </div>
-              
               <div>
-                <Label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full"
-                  data-testid="input-email"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Subject
-                </Label>
+                <Label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</Label>
                 <Input
                   type="text"
                   id="subject"
@@ -171,15 +157,12 @@ export default function ContactSection() {
                   required
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full"
-                  data-testid="input-subject"
+                  className="w-full bg-input"
+                  placeholder="Subject of your message"
                 />
               </div>
-              
               <div>
-                <Label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </Label>
+                <Label htmlFor="message" className="block text-sm font-medium mb-2">Message</Label>
                 <Textarea
                   id="message"
                   name="message"
@@ -187,16 +170,14 @@ export default function ContactSection() {
                   required
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full resize-vertical"
-                  data-testid="textarea-message"
+                  className="w-full resize-vertical bg-input"
+                  placeholder="How can I help you?"
                 />
               </div>
-              
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02]"
-                data-testid="button-submit"
+                className="w-full"
               >
                 {isSubmitting ? (
                   <>
